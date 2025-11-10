@@ -1,0 +1,2 @@
+#! /bin/bash
+PROTON_LOG=1 WINEDEBUG="+timestamp,+pid,+tid,+seh,+debugstr,+module" STEAM_COMPAT_CLIENT_INSTALL_PATH=$HOME/.local/share/Steam/ STEAM_COMPAT_DATA_PATH=$HOME/.local/share/Steam/steamapps/compatdata/2016590/ xvfb-run -e /dev/stdout -n 98 $HOME/.local/share/Steam/steamapps/common/Proton\ -\ Experimental/proton run $HOME/.local/share/Steam/steamapps/common/'Dark and Darker'/Tavern.exe -server=localhost -steam=1 -taverntype=steam -tavernapp=dad -nullrhi -nosound -unattended
