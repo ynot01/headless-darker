@@ -196,70 +196,78 @@ def main():
         # Removes USMap file, if one already exists
         Path.unlink(Path(USMAP_PATH), True)
 
-        print('Running Dark and Darker...')
-        proton_env = environ.copy()
-        proton_env['PROTON_LOG'] = '1'
-        proton_env['WINEDEBUG'] = '+timestamp,+pid,+tid,+seh,+debugstr,+module'
-        proton_env['STEAM_COMPAT_CLIENT_INSTALL_PATH'] = STEAM_PATH
-        proton_env['STEAM_COMPAT_DATA_PATH'] = STEAM_COMPAT_DATA_PATH
-        Popen(
-            [
-                'xvfb-run',
-                '-e',
-                '/dev/stdout',
-                '-n',
-                '98',
-                PROTON_PATH,
-                'run',
-                TAVERN_PATH,
-                '-server=localhost',
-                '-steam=1',
-                '-taverntype=steam',
-                '-tavernapp=dad',
-                '-nullrhi',
-                '-nullrhi',
-                '-nosound',
-                '-unattended',
-            ],
-            text=True,
-            env=proton_env,
-        )
-
-        # Check if USMap file exists
         while not path.exists(USMAP_PATH):
-            sleep(5)
-            print('Checking for USMap file...')
+            print('Running Dark and Darker...')
+            proton_env = environ.copy()
+            proton_env['PROTON_LOG'] = '1'
+            proton_env['WINEDEBUG'] = '+timestamp,+pid,+tid'
+            ',+seh,+debugstr,+module'
+            proton_env['STEAM_COMPAT_CLIENT_INSTALL_PATH'] = STEAM_PATH
+            proton_env['STEAM_COMPAT_DATA_PATH'] = STEAM_COMPAT_DATA_PATH
+            Popen(
+                [
+                    'xvfb-run',
+                    '-e',
+                    '/dev/stdout',
+                    '-n',
+                    '98',
+                    PROTON_PATH,
+                    'run',
+                    TAVERN_PATH,
+                    '-server=localhost',
+                    '-steam=1',
+                    '-taverntype=steam',
+                    '-tavernapp=dad',
+                    '-nullrhi',
+                    '-nullrhi',
+                    '-nosound',
+                    '-unattended',
+                ],
+                text=True,
+                env=proton_env,
+            )
+            missing_times = 0
+            # Check if USMap file exists
+            while missing_times >= 5 and not path.exists(USMAP_PATH):
+                sleep(10)
+                print('Checking for USMap file...')
+                missing_times += 1
+            print('Assuming this run failed. Restarting Dark and Darker...')
+            nuke_wine()
+        nuke_wine()
 
-        print('Found USMap! Killing Dark and Darker...')
-        # Nukes wine processes
-        run(['killall', '-SIGKILL', 'winedevice.exe'])
-        run(
-            [
-                'killall',
-                '-SIGTERM',
-                'wineserver',
-                'Tavern.exe',
-                'TavernDart.exe',
-                'TavernWorker.exe',
-                'DungeonCrawler.exe',
-                'GameThread',
-                'services.exe',
-                'explorer.exe',
-                'conhost.exe',
-                'tabtip.exe',
-                'plugplay.exe',
-                'rpcss.exe',
-                'svchost.exe',
-                'xalia.exe',
-                'steam.exe',
-            ]
-        )
-        print('Killed Dark and Darker successfully.')
+        print('Found USMap!')
 
         print('Sending USMap to webhook...')
         asyncio.run(send_usmap_to_webhook(current_build))
         print('Sent USMap to webhook!')
         # Loop here
+
+
+# Nukes wine processes
+def nuke_wine():
+    run(['killall', '-SIGKILL', 'winedevice.exe'])
+    run(
+        [
+            'killall',
+            '-SIGTERM',
+            'wineserver',
+            'Tavern.exe',
+            'TavernDart.exe',
+            'TavernWorker.exe',
+            'DungeonCrawler.exe',
+            'GameThread',
+            'services.exe',
+            'explorer.exe',
+            'conhost.exe',
+            'tabtip.exe',
+            'plugplay.exe',
+            'rpcss.exe',
+            'svchost.exe',
+            'xalia.exe',
+            'steam.exe',
+        ]
+    )
 
 
 async def send_usmap_to_webhook(build: int):
