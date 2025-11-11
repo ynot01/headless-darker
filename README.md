@@ -18,7 +18,7 @@ UE4SS is licensed under MIT - https://github.com/UE4SS-RE/RE-UE4SS
 - Dark and Darker should be installed at `$HOME/.local/share/Steam/steamapps/common/'Dark and Darker'`
 - Proton Experimental should be installed at `$HOME/.local/share/Steam/steamapps/common/'Proton - Experimental'/`
 - [steamguard-cli](https://github.com/dyc3/steamguard-cli) should be installed, and credentials stored in `$HOME/.config/steamguard-cli/maFiles/`
-- [uv](https://github.com/astral-sh/uv) should be installed for a reliable environment
+- [uv](https://github.com/astral-sh/uv) should be installed for a reliable Python environment
 - xvfb-run (`sudo apt install xorg xserver-xorg xvfb libx11-dev libxext-dev libxcursor-dev -y`)
 - bash
 
