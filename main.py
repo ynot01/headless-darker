@@ -232,7 +232,6 @@ def main():
 
         print('Found USMap! Killing Dark and Darker...')
         # Nukes wine processes
-        run(['wineserver', '-k'])
         run(['killall', '-SIGKILL', 'winedevice.exe'])
         run(
             [
