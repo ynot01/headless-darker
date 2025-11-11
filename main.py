@@ -276,7 +276,8 @@ async def send_usmap_to_webhook(build: int):
                 f'{environ.get("WEBHOOK_URL")}', session=session
             )
             await webhook.send(
-                f'-# Source: <https://github.com/ynot01/headless-darker>\nNew usmap from version {version} - Steam build {str(build)}',
+                '-# Source: <https://github.com/ynot01/headless-darker>\n'
+                f'New usmap from version {version} - Steam build {str(build)}',
                 file=discord_file,
             )
 
