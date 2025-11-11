@@ -4,7 +4,7 @@ from os import environ, path
 from pathlib import Path
 from re import split
 from subprocess import Popen, run
-from sys import platform
+from sys import platform, stdout
 from time import sleep
 from traceback import print_tb
 from urllib import parse
@@ -21,6 +21,7 @@ _print = print
 
 def print(*args, **kwargs):  # type: ignore
     _print(f'[{datetime.now(UTC)}]', *args, **kwargs)  # type: ignore
+    stdout.flush()
 
 
 STEAM_COMPAT_DATA_PATH = path.join(
