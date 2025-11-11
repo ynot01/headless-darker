@@ -228,7 +228,7 @@ def main():
             )
             missing_times = 0
             # Check if USMap file exists
-            while missing_times >= 5 and not path.exists(USMAP_PATH):
+            while missing_times <= 5 and not path.exists(USMAP_PATH):
                 sleep(10)
                 print('Checking for USMap file...')
                 missing_times += 1
