@@ -95,7 +95,7 @@ WIN64_PATH = path.join(
     'Binaries',
     'Win64',
 )
-UPDATE_CHECK_MINUTES = 3
+UPDATE_CHECK_MINUTES = 10
 
 
 def main():
@@ -276,7 +276,7 @@ async def send_usmap_to_webhook(build: int):
                 f'{environ.get("WEBHOOK_URL")}', session=session
             )
             await webhook.send(
-                f'New usmap from version {version} - Steam build {str(build)}',
+                f'-# Source: <https://github.com/ynot01/headless-darker>\nNew usmap from version {version} - Steam build {str(build)}',
                 file=discord_file,
             )
 
