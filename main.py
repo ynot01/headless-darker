@@ -119,12 +119,12 @@ def main():
                 print('Checking for update...')
         if fetch_build <= current_build:
             sleep(
-                10 * UPDATE_CHECK_MINUTES
+                60 * UPDATE_CHECK_MINUTES
             )  # Build did not change, wait x minutes
             continue
         if current_build == 0:
             current_build = fetch_build
-            sleep(10 * UPDATE_CHECK_MINUTES)
+            sleep(60 * UPDATE_CHECK_MINUTES)
             continue
         print('Dark and Darker has updated!')
         current_build = fetch_build
