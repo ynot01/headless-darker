@@ -13,7 +13,7 @@ UE4SS is licensed under MIT - https://github.com/UE4SS-RE/RE-UE4SS
 ## Requirements
 
 - A Linux environment (Tested on Ubuntu 24.04, but others will probably work)
-- A 2FA-enabled Steam account that owns Dark and Darker
+- A 2FA-enabled Steam account that owns Dark and Darker (it's free)
 - Steam should be installed at `$HOME/.local/share/Steam/`
 - Dark and Darker should be installed at `$HOME/.local/share/Steam/steamapps/common/'Dark and Darker'` (Run `app_update 2016590` in steamcmd)
 - Proton Experimental should be installed at `$HOME/.local/share/Steam/steamapps/common/'Proton - Experimental'/` (Run `app_update 1493710` in steamcmd)
