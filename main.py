@@ -287,7 +287,7 @@ async def send_usmap_to_webhook(build: int):
             threadid = environ.get('DISCORD_THREAD_ID')
             roleid = environ.get('DISCORD_ROLE_ID')
             roleid = (
-                f'<@&{roleid}> - Click Channels & Roles to get this role'
+                f'-# <@&{roleid}> - Click Channels & Roles to get this role'
                 if roleid
                 else ''
             )
