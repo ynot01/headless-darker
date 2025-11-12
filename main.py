@@ -107,28 +107,32 @@ def main():
         'All requirements passed. '
         f'Now checking for an update every {UPDATE_CHECK_MINUTES} minutes.'
     )
-    checked_times = 0
     current_build = 0
+    current_version = ''
     while True:
         # Check if Dark and Darker has a newer build
         fetch_build = get_latest_build()
-        if checked_times < 3:
-            checked_times += 1
-            if checked_times == 3:
-                print('Checking for update... (Silencing this message)')
-            else:
-                print('Checking for update...')
-        if fetch_build <= current_build:
+        fetch_version = get_latest_version()
+        print(
+            'Checking for update... '
+            f'Current: {current_build} - {current_version}'
+            f', New: {fetch_build} - {fetch_version}'
+        )
+        if fetch_build <= current_build or fetch_version != current_version:
             sleep(
                 60 * UPDATE_CHECK_MINUTES
             )  # Build did not change, wait x minutes
             continue
-        if current_build == 0:
+        if current_build == 0 or current_version == '':
             current_build = fetch_build
-            sleep(60 * UPDATE_CHECK_MINUTES)
+            current_version = fetch_version
+            sleep(
+                60 * UPDATE_CHECK_MINUTES
+            )  # Build did not change, wait x minutes
             continue
         print('Dark and Darker has updated!')
         current_build = fetch_build
+        current_version = fetch_version
 
         print('Running SteamCMD...')
         steamcmd_proc = run(
