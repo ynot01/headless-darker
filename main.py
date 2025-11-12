@@ -114,7 +114,6 @@ def main():
         fetch_build = get_latest_build()
         fetch_version = get_latest_version()
         print(
-            'Checking for update... '
             f'Current: {current_build} - {current_version}'
             f', New: {fetch_build} - {fetch_version}'
         )
