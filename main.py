@@ -11,7 +11,7 @@ from urllib import parse
 from xml import parsers
 
 from aiohttp import ClientSession
-from discord import File, Webhook
+from discord import File, Object, Webhook
 from dotenv import load_dotenv
 from requests import exceptions, get
 from rss_parser import RSSParser
@@ -284,11 +284,26 @@ async def send_usmap_to_webhook(build: int):
             webhook = Webhook.from_url(
                 f'{environ.get("WEBHOOK_URL")}', session=session
             )
-            await webhook.send(
-                '-# Source: <https://github.com/ynot01/headless-darker>\n'
-                f'New usmap from version {version} - Steam build {str(build)}',
-                file=discord_file,
-            )
+            threadid = environ.get('DISCORD_THREAD_ID')
+            roleid = environ.get('DISCORD_ROLE_ID')
+            roleid = f'<@&{roleid}>' if roleid else ''
+            if threadid and int(threadid) > 0:
+                await webhook.send(
+                    '-# Source: <https://github.com/ynot01/headless-darker>\n'
+                    f'New usmap from version {version}'
+                    f' - Steam build {str(build)}\n'
+                    f'{roleid}',
+                    file=discord_file,
+                    thread=Object(threadid),
+                )
+            else:
+                await webhook.send(
+                    '-# Source: <https://github.com/ynot01/headless-darker>\n'
+                    f'New usmap from version {version}'
+                    f' - Steam build {str(build)}\n'
+                    f'{roleid}',
+                    file=discord_file,
+                )
 
 
 def get_steamguard() -> str:
