@@ -289,18 +289,18 @@ async def send_usmap_to_webhook(build: int):
             roleid = f'<@&{roleid}>' if roleid else ''
             if threadid and int(threadid) > 0:
                 await webhook.send(
-                    '-# Source: <https://github.com/ynot01/headless-darker>\n'
                     f'New usmap from version {version}'
                     f' - Steam build {str(build)}\n'
+                    '-# Source: <https://github.com/ynot01/headless-darker>\n'
                     f'{roleid}',
                     file=discord_file,
                     thread=Object(threadid),
                 )
             else:
                 await webhook.send(
-                    '-# Source: <https://github.com/ynot01/headless-darker>\n'
                     f'New usmap from version {version}'
                     f' - Steam build {str(build)}\n'
+                    '-# Source: <https://github.com/ynot01/headless-darker>\n'
                     f'{roleid}',
                     file=discord_file,
                 )
