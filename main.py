@@ -114,8 +114,8 @@ def main():
         fetch_build = get_latest_build()
         fetch_version = get_latest_version()
         print(
-            f'Current: {current_build} - {current_version}'
-            f', New: {fetch_build} - {fetch_version}'
+            f'{current_build} - {current_version}'
+            f'vs {fetch_build} - {fetch_version}'
         )
         if fetch_build <= current_build or fetch_version != current_version:
             sleep(
