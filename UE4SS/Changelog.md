@@ -11,6 +11,11 @@ some notes about most important changes such as:
 
 ### General
 
+Added CMake build system alongside Xmake - ([UE4SS #1067](https://github.com/UE4SS-RE/RE-UE4SS/pull/1067))
+- CMake >= 3.22 is now supported as the default build system
+- Documentation updated to reference CMake build instructions
+- xmake may be deprecated in the future. Meanwhile, we cannot guarantee ABI compatability
+
 Added support for UE Version 5.6 - ([UE4SS #977](https://github.com/UE4SS-RE/RE-UE4SS/pull/977)) 
 
 Added support for UE Version 5.5 - ([UE4SS #708](https://github.com/UE4SS-RE/RE-UE4SS/pull/708)) 
@@ -23,6 +28,8 @@ Added basic support for Development/Debug/Test built Unreal Engine games ([UE4SS
 Added command line option to disable RE-UE4SS loading via proxy DLL. Use `--disable-ue4ss` to launch game without UE4SS while keeping the proxy DLL installed. ([UE4SS #1069](https://github.com/UE4SS-RE/RE-UE4SS/pull/1069))
 
 Added command line option to specify custom UE4SS.dll path via proxy DLL. Use `--ue4ss-path <path>` to load UE4SS.dll from a custom location, supporting both absolute and relative paths. This allows developers to easily test different UE4SS builds without modifying files. ([UE4SS #1074](https://github.com/UE4SS-RE/RE-UE4SS/pull/1074))
+
+Added environment variable `UE4SS_MODS_PATHS`. This is a colon separated list of additional directories to load Lua and C++ mods from. ([UE4SS #1069](https://github.com/UE4SS-RE/RE-UE4SS/pull/1070))
 
 Added new build definition "LessEqual421".  Using this definition for games on UE<=4.21 is not mandatory for UE4SS to function, but will ensure the correct alignment is used in containers. 
 
@@ -51,6 +58,8 @@ Added custom game configurations for Lies of P ([UE4SS #787](https://github.com/
 
 Added custom game configurations for Project Silverfish ([UE4SS #1066](https://github.com/UE4SS-RE/RE-UE4SS/pull/1066))
 
+Added custom game configurations for Whiskerwood ([UE4SS #1079](https://github.com/UE4SS-RE/RE-UE4SS/pull/1079))
+
 The GUI can now be rendered in the game thread if `RenderMode` in UE4SS-settings.ini is set to
 `EngineTick` or `GameViewportClientTick` ([UE4SS #768](https://github.com/UE4SS-RE/RE-UE4SS/pull/768), [UE4SS #794](https://github.com/UE4SS-RE/RE-UE4SS/pull/794)).
 
@@ -62,12 +71,29 @@ Add error messages in places where only error codes were previously logged (e.g.
 
 Added `[f: <address_or_module_offset>` section to UE4SS_ObjectDump.txt [UE4SS #866](https://github.com/UE4SS-RE/RE-UE4SS/pull/866) 
 
+Added line in the [docs](https://docs.ue4ss.com/dev/guides/fixing-compatibility-problems.html) to add `FText::FromString(FString&)` as an alternative to `FText::FText(FString&)` for UE5 games - ([UE4SS #1078](https://github.com/UE4SS-RE/RE-UE4SS/pull/1078))
+
 ### Live View 
 Added search filter: `IncludeClassNames`. ([UE4SS #472](https://github.com/UE4SS-RE/RE-UE4SS/pull/472)) - Buckminsterfullerene
 
 Added search filter: `Match Memory Address`. ([UE4SS #882](https://github.com/UE4SS-RE/RE-UE4SS/pull/882)) - vitrvvivs
 
 Added ability to call UFunctions directly from the GUI. ([UE4SS #851](https://github.com/UE4SS-RE/RE-UE4SS/pull/851))
+
+Added highlights for properties matching the `Has property` and `Has property of type` filters ([UE4SS #1089](https://github.com/UE4SS-RE/RE-UE4SS/pull/1089))
+
+### Lua Debugger
+
+Added new Lua Debugger GUI tab with debugging tools for Lua mod development  ([UE4SS #1099](https://github.com/UE4SS-RE/RE-UE4SS/pull/1099))
+- Breakpoint management with hit counts
+- Step debugging (Step Into, Step Over, Step Out, Continue)
+- Call stack viewer with clickable frames
+- Locals and upvalues inspection
+- Global variables browser with search and tree navigation
+- REPL console with command history
+- Script editor
+- Loaded modules viewer
+- Mods management tab to view, enable/disable, and create Lua mods
 
 ### UHT Dumper
 
@@ -253,6 +279,10 @@ The search filter `ExcludeClassName` can now be found in the `IncludeClassNames`
 
 The following search filters now allow multiple values, with each value separated by a comma: `IncludeClassNames`, `ExcludeClassNames`, `HasProperty`, `HasPropertyType`. ([UE4SS #472](https://github.com/UE4SS-RE/RE-UE4SS/pull/472)) - Buckminsterfullerene 
 
+Large structs that cause FPS problems no longer render, but you can still click on the struct to render each individual property of the struct. ([UE4SS #1080](https://github.com/UE4SS-RE/RE-UE4SS/pull/1080)) 
+
+Large performance increase when `Apply filters when not searching` is enabled ([UE4SS #1090](https://github.com/UE4SS-RE/RE-UE4SS/pull/1090)) 
+
 ### UHT Dumper 
 
 ### Lua API 
@@ -337,6 +367,16 @@ Corporalwill123
 
 Fixed crash on warning in dumpers and generators ([UE4SS #976](https://github.com/UE4SS-RE/RE-UE4SS/pull/976))
 
+Fixed crash on expanding arrays ([UE4SS #1082](https://github.com/UE4SS-RE/RE-UE4SS/pull/1082))
+
+Fixed broken filters: `Include CDOs` & `CDOs only` ([UE4SS #1089](https://github.com/UE4SS-RE/RE-UE4SS/pull/1089))
+
+Fixed the `Include inheritance` filter taking precedence over other filters, causing them to not apply ([UE4SS #1089](https://github.com/UE4SS-RE/RE-UE4SS/pull/1089))
+
+Fixed the `Refresh search` button sometimes not working correctly ([UE4SS #1089](https://github.com/UE4SS-RE/RE-UE4SS/pull/1089))
+
+Fixed filters incorrectly being applied when not searching ([UE4SS #1089](https://github.com/UE4SS-RE/RE-UE4SS/pull/1089))
+
 ### UHT Dumper 
 Fix SetupAttachment implementations randomly changing order ([UE4SS #606](https://github.com/UE4SS-RE/RE-UE4SS/pull/606)) - Buckminsterfullerene 
 
@@ -409,6 +449,23 @@ Fixed `LoadMod` function issue that variables would go out-of-scope in the `Exec
 
 ### Added 
 ```ini
+[Overrides]
+; Additional mods directories to load mods from
+; Use + prefix to add a directory, - prefix to remove
+; Can be relative to working directory or absolute paths
+; Example:
+;   +ModsFolderPaths = ../SharedMods
+;   +ModsFolderPaths = C:/MyMods
+;   -ModsFolderPaths = ../SharedMods
+; Default: none
+
+; Path to a specific mods.txt file to use as the controlling mod list.
+; If set, ONLY this mods.txt will be parsed instead of mods.txt from all mod directories.
+; Can be relative to working directory or an absolute path.
+; Example: ControllingModsTxt = ../MyMods/mods.txt
+; Default: Empty (parse mods.txt from all mod directories)
+ControllingModsTxt =
+
 [General]
 ; The key that will trigger a reload of all mods.
 ; The CTRL key is always required.
