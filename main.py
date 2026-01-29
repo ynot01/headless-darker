@@ -159,10 +159,12 @@ def main():
             print(
                 'SteamCMD exited with code',
                 steamcmd_proc.returncode,
-                'Retrying in ', backoff, ' seconds...',
+                'Retrying in ',
+                backoff,
+                ' seconds...',
             )
             sleep(backoff)
-            backoff = backoff + backoff # exponential backoff
+            backoff = backoff + backoff  # exponential backoff
             steamcmd_proc = run(
                 [
                     'bash',
@@ -332,7 +334,7 @@ def get_steamguard() -> str:
             'Retrying in 30 seconds...',
         )
         sleep(backoff)
-        backoff = backoff + backoff # exponential backoff
+        backoff = backoff + backoff  # exponential backoff
         steamguard_proc = run(
             ['steamguard', '--username', f'{environ.get("STEAM_USERNAME")}'],
             capture_output=True,
