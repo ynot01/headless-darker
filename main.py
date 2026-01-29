@@ -109,6 +109,7 @@ def main():
     )
     current_build = 0
     current_version = ''
+    backoff = 30
     while True:
         # Check if Dark and Darker has a newer build
         fetch_build = get_latest_build()
@@ -158,9 +159,10 @@ def main():
             print(
                 'SteamCMD exited with code',
                 steamcmd_proc.returncode,
-                'Retrying in 30 seconds...',
+                'Retrying in ', backoff, ' seconds...',
             )
-            sleep(30)
+            sleep(backoff)
+            backoff = backoff + backoff # exponential backoff
             steamcmd_proc = run(
                 [
                     'bash',
@@ -176,6 +178,7 @@ def main():
                 text=True,
             )
         print('Updated Dark and Darker successfully.')
+        backoff = 30
 
         print('Copying UE4SS to Dark and Darker...')
         copy_proc = run(
@@ -319,6 +322,7 @@ def get_steamguard() -> str:
         capture_output=True,
         text=True,
     )
+    backoff = 30
     while steamguard_proc.returncode > 0:
         print('Steamguard-CLI STDOUT: \n', steamguard_proc.stdout)
         print('Steamguard-CLI STDERR: \n', steamguard_proc.stderr)
@@ -327,12 +331,14 @@ def get_steamguard() -> str:
             steamguard_proc.returncode,
             'Retrying in 30 seconds...',
         )
-        sleep(30)
+        sleep(backoff)
+        backoff = backoff + backoff # exponential backoff
         steamguard_proc = run(
             ['steamguard', '--username', f'{environ.get("STEAM_USERNAME")}'],
             capture_output=True,
             text=True,
         )
+    backoff = 30
     return steamguard_proc.stdout
 
 
