@@ -4,7 +4,7 @@ Automated Dark and Darker wiki tool
 
 Runs Dark and Darker headless for use in a Linux server
 
-Current used UE4SS version is `zDEV-UE4SS_v3.0.1-632-gb734711.zip`
+Current used UE4SS version is `zDEV-UE4SS_v3.0.1-949-gdd6777a8.zip`
 
 Make sure to move dwmapi.dll to the UE4SS folder when updating UE4SS
 

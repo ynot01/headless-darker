@@ -2,7 +2,7 @@
 
 These are the Lua API functions available in UE4SS, on top of the standard libraries that Lua comes with by defualt.
 
-For version: **3.1.0**
+For version: **4.0.0**
 
 Current status: **mostly complete**
 
@@ -329,6 +329,22 @@ This is an overall list of API definitions available in UE4SS. For more readable
     DumpStaticMeshes()
     DumpAllActors()
     DumpUSMAP()
+
+    RestartCurrentMod()
+        - Restarts the currently running mod.
+        - Queues the mod for restart on the next update cycle.
+
+    UninstallCurrentMod()
+        - Uninstalls the currently running mod.
+        - Queues the mod for uninstallation on the next update cycle.
+
+    RestartMod(string ModName)
+        - Restarts another mod by name.
+        - Queues the specified mod for restart on the next update cycle.
+
+    UninstallMod(string ModName)
+        - Uninstalls another mod by name.
+        - Queues the specified mod for uninstallation on the next update cycle.
 ```
 
 ### Classes
