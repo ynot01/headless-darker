@@ -6,8 +6,6 @@ Runs Dark and Darker headless for use in a Linux server
 
 Current used UE4SS version is `zDEV-UE4SS_v3.0.1-949-gdd6777a8.zip`
 
-Make sure to move dwmapi.dll to the UE4SS folder when updating UE4SS
-
 UE4SS is licensed under MIT - https://github.com/UE4SS-RE/RE-UE4SS
 
 ## Requirements
