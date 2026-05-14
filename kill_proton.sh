@@ -16,3 +16,4 @@ killall -SIGTERM rpcss.exe
 killall -SIGTERM svchost.exe
 killall -SIGTERM xalia.exe
 killall -SIGTERM steam.exe
+killall -SIGTERM crashpad_handle
