@@ -4,7 +4,7 @@ from os import environ, path
 from pathlib import Path
 from re import split
 from subprocess import Popen, run
-from sys import platform, stdout, argv
+from sys import argv, platform, stdout
 from time import sleep
 from traceback import print_tb
 from urllib import parse
@@ -126,7 +126,7 @@ def main():
         if current_build == 0 or current_version == '':
             current_build = fetch_build
             current_version = fetch_version
-            if not ('-f' in argv):
+            if '-f' not in argv:
                 sleep(
                     60 * UPDATE_CHECK_MINUTES
                 )  # Build did not change, wait x minutes
@@ -153,7 +153,10 @@ def main():
         while (
             steamcmd_proc.returncode > 0
             or 'ERROR' in steamcmd_proc.stdout
-            or 'already up to date' in steamcmd_proc.stdout
+            or (
+                '-f' not in argv
+                and 'already up to date' in steamcmd_proc.stdout
+            )
         ):
             print('SteamCMD STDOUT: \n', steamcmd_proc.stdout)
             print('SteamCMD STDERR: \n', steamcmd_proc.stderr)
