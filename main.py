@@ -217,6 +217,7 @@ def main():
             ',+seh,+debugstr,+module'
             proton_env['STEAM_COMPAT_CLIENT_INSTALL_PATH'] = STEAM_PATH
             proton_env['STEAM_COMPAT_DATA_PATH'] = STEAM_COMPAT_DATA_PATH
+            proton_env['PROTON_USE_XALIA'] = '0'
             Popen(
                 [
                     'xvfb-run',
