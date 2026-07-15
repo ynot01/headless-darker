@@ -24,3 +24,5 @@ UE4SS is licensed under MIT - https://github.com/UE4SS-RE/RE-UE4SS
 ## Usage
 
 `uv run main.py`
+
+`uv run main.py -f` will act as if an update occured on the first run and start generating a USMap
