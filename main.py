@@ -212,6 +212,7 @@ def main():
         while not path.exists(USMAP_PATH):
             print('Running Dark and Darker...')
             proton_env = environ.copy()
+            proton_env['PROTON_NO_ESYNC'] = '1'
             proton_env['PROTON_LOG'] = '1'
             proton_env['WINEDEBUG'] = '+timestamp,+pid,+tid'
             ',+seh,+debugstr,+module'
@@ -236,6 +237,7 @@ def main():
                     '-nullrhi',
                     '-nosound',
                     '-unattended',
+                    '-dx11',
                 ],
                 text=True,
                 env=proton_env,
